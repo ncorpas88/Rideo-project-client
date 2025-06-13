@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function Signup() {
+
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -20,12 +24,15 @@ function Signup() {
     try {
     
       await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/signup`, {email, username, password, image: "https://i.pravatar.cc/150?u="})
+      navigate("/login")
     } catch (error) {
       console.log(error)
       //enviar pag de error
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.errorMessage)
-      }
+      }else {
+      navigate("/*")
+    }
     }
 
   };
