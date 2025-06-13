@@ -1,10 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/auth.context";
 
 function Login() {
 
+  const {authenticateUser} = useContext(AuthContext)
+  
   const navigate = useNavigate()
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null)
@@ -19,6 +23,14 @@ function Login() {
    try {
     const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, {email, password})
     console.log("usuario validado por el backend", response)
+
+    localStorage.setItem("authToken", response.data.authToken)
+
+    await authenticateUser()
+
+    navigate("/userProfile")
+
+
    } catch (error) {
     console.log(error)
     if(error.response.status === 400) {
@@ -36,7 +48,7 @@ function Login() {
       <h1>Login</h1>
 
       <form onSubmit={handleLogin}>
-        <label>Correo Electronico:</label>
+        <label>Mail:</label>
         <input
           type="email"
           name="email"
@@ -46,7 +58,7 @@ function Login() {
 
         <br />
 
-        <label>Contraseña:</label>
+        <label>Password:</label>
         <input
           type="password"
           name="password"
@@ -56,7 +68,7 @@ function Login() {
 
         <br />
 
-        <button type="submit">Acceder</button>
+        <button type="submit">login</button>
         {errorMessage && <p>{errorMessage}</p>}
       </form>
       
