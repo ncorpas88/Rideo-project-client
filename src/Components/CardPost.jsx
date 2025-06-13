@@ -1,10 +1,18 @@
+import Card from "react-bootstrap/Card";
 
+function CardPost(props) {
+  if (!props) return null
 
-function CardPost() {
   return (
-    <div>
-      <h1>CardPost</h1>
-    </div>
+    <Card>
+      <Card.Img variant="top"
+      src={props.eachPost.image}
+      alt={props.eachPost.image}/>
+      <Card.Title>{props.eachPost.title}</Card.Title>
+      <Card.Body>
+        <Card.Text>{props.eachPost.distancekm}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 
