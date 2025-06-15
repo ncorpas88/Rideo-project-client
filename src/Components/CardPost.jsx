@@ -10,7 +10,7 @@ function CardPost(props) {
       alt={props.eachPost.image}/>
       <Card.Title>{props.eachPost.title}</Card.Title>
       <Card.Body>
-        <Card.Text>{props.eachPost.distancekm}</Card.Text>
+        <Card.Text>{props.eachPost.distancekm} Km</Card.Text>
       </Card.Body>
     </Card>
   );

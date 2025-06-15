@@ -27,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="*" element={<ErrorPage />}/>
         <Route path="/userProfile" element={<OnlyPrivate><UserProfilePage /></OnlyPrivate>}/>
+        <Route path="/createPost" element={<OnlyPrivate><FormCreatePostPage/></OnlyPrivate>}/>
       </Routes>
         {/*
         <FormUpdatePostPage />

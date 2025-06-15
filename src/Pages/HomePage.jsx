@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPost from "../Components/CardPost";
 
+
 function HomePage() {
   const [allPost, setAllPost] = useState([]);
   const navigate = useNavigate();
@@ -25,14 +26,9 @@ function HomePage() {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <ul>
-        <li>
-          {allPost.map((eachPost) => {
-            return <CardPost key={eachPost.id} eachPost={eachPost} />;
-          })}
-        </li>
-      </ul>
+      {allPost.map((eachPost) => {
+        return <CardPost key={eachPost._id} eachPost={eachPost} />;
+      })}
     </div>
   );
 }
