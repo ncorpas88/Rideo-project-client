@@ -115,6 +115,22 @@ function DetailsPostPage(props) {
     }
   };
 
+  // Borrar comentario
+  const deleteComment = async (commentId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setComents((prevComments) =>
+        prevComments.filter((comment) => comment._id !== commentId)
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div>
       <div className="imagedetailpost">
@@ -150,6 +166,11 @@ function DetailsPostPage(props) {
               <small>Published by: {" "}
                 {eachComment.userCreator?.username || "Unknown user"}
               </small>
+              {isLoggedIn && loggedUserId === eachComment.userCreator?._id && (
+                <div className="mt-2">
+                  <Button variant="danger" size="sm" onClick={() => deleteComment(eachComment._id)}>Delete</Button>
+                </div>
+              )}
             </Card.Body>
           </Card>
         ))}
