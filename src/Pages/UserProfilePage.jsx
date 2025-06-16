@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../Context/auth.context"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 
@@ -56,6 +56,7 @@ if (loading) return <div>Loading...</div>
 
   }
 
+
   return (
     <div>
       <h1>UserProfile Page</h1>
@@ -67,7 +68,12 @@ if (loading) return <div>Loading...</div>
         </>        
       )}
       <hr />
+
+
+
+      <hr />
       <button onClick={handleLogout}>Logout</button>
+      <hr />
     </div>
   );
 }

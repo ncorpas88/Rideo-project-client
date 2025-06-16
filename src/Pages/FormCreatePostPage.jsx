@@ -1,19 +1,29 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { AuthContext } from "../Context/auth.context";
 
 function FormCreatePostPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {isLoggedIn, loggedUserId} = useContext(AuthContext);
+
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [distancekm, setDistancekm] = useState("");
   const [location, setLocation] = useState("");
-  const [userCrator, setUserCreator] = useState("");
 
-  const handleSumit = async(e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isLoggedIn || !loggedUserId){
+      alert("You must be logged in to create a post.");
+      return navigate("/login");
+    }
+
+    const authToken = localStorage.getItem("authToken");
 
     const newPost = {
       image: image,
@@ -21,32 +31,33 @@ function FormCreatePostPage() {
       description: description,
       distancekm: distancekm,
       location: location,
-      userCrator: userCrator
-    }
+      userCreator: loggedUserId,
+    };
 
     try {
-      await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/post`, newPost)
-      navigate("/")
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/post`, newPost, {
+        headers: {authorization: `Bearer ${authToken}`}
+      });
+      navigate("/");
     } catch (error) {
-      console.log(error)
-      navigate("*")
+      console.log(error);
+      navigate("*");
     }
-
-  }
-
+  };
 
   return (
     <div>
       <h1>Add Post</h1>
-      <Form className="mx-5 p-2" onSubmit={handleSumit}>
+      <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
-          type="text"
-          name="Url"
-          value={image}
-          required
-          onChange={(e) => setImage(e.target.value)}/>
+            type="text"
+            name="Url"
+            value={image}
+            required
+            onChange={(e) => setImage(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -78,17 +89,6 @@ function FormCreatePostPage() {
             name="Distance"
             value={distancekm}
             required
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </Form.Group>
-        
-         <Form.Group className="mb-3">
-          <Form.Label>Distance: </Form.Label>
-          <Form.Control
-            type="number"
-            name="Distance"
-            value={distancekm}
-            required
             onChange={(e) => setDistancekm(e.target.value)}
           />
         </Form.Group>
@@ -103,10 +103,11 @@ function FormCreatePostPage() {
             onChange={(e) => setLocation(e.target.value)}
           />
         </Form.Group>
-        <Button variant="success" type="submit">Add Post</Button>
-      </Form>
-     
 
+        <Button variant="success" type="submit">
+          Add Post
+        </Button>
+      </Form>
     </div>
   );
 }

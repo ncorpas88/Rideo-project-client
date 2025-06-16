@@ -28,12 +28,13 @@ function App() {
         <Route path="*" element={<ErrorPage />}/>
         <Route path="/userProfile" element={<OnlyPrivate><UserProfilePage /></OnlyPrivate>}/>
         <Route path="/createPost" element={<OnlyPrivate><FormCreatePostPage/></OnlyPrivate>}/>
+        <Route path="/details/:postId" element={<DetailsPostPage />} />
+        <Route path="/formUpdatePostPage/:postId" element={<FormUpdatePostPage />} />
       </Routes>
         {/*
-        <FormUpdatePostPage />
+        
         <FormUpdateProfilePage />
-        <FormCreatePostPage />
-        <DetailsPostPage />*/}
+        */}
       <Footer />
     </>
   );
