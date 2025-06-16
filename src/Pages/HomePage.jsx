@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import CardPost from "../Components/CardPost";
 
 
+
 function HomePage() {
   const [allPost, setAllPost] = useState([]);
+  
   const navigate = useNavigate();
+ 
 
   useEffect(() => {
     getData();
@@ -24,11 +27,14 @@ function HomePage() {
     }
   };
 
+  
+
   return (
-    <div>
+    <div className="posts">
       {allPost.map((eachPost) => {
         return <CardPost key={eachPost._id} eachPost={eachPost} />;
       })}
+      
     </div>
   );
 }

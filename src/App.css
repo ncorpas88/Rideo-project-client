@@ -1,7 +1,92 @@
+
+
 #root {
-  max-width: 1280px;
+  background-color: rgb(77, 77, 77);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
+.nav {
+  background-color: rgb(31, 31, 31);
+  max-width: 100%;
+  display: flex;
+  justify-content:center;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.nav button {
+  margin: 10%;
+}
+
+.posts {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.post image {
+  border-radius: 5px;
+  width: 300px;
+  height: 200px;
+}
+
+.cards {
+  width: 86%;
+}
+
+.footer {
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  
+  width: 100%;
+}
+
+.footer button{
+  margin: 1rem;
+}
+
+.userimage {
+  border-radius: 50px;
+}
+
+.imagedetailpost {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.carduser {
+    width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  margin-bottom: 6rem;
+}
+
+@media (max-width: 865px){
+
+  .posts {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.cards {
+  width: 96%;
+}
+
+}

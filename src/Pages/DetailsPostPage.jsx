@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate, useParams, Link} from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -10,16 +10,21 @@ import { AuthContext } from "../Context/auth.context";
 
 function DetailsPostPage(props) {
   const params = useParams();
+
   const navigate = useNavigate();
+
   const [details, setDetails] = useState(null);
   const [show, setShow] = useState(false);
-  const {isLoggedIn, loggedUserId} = useContext(AuthContext);
-   const [text, setText] = useState("");
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
+  const [text, setText] = useState("");
   const [image, setImage] = useState("");
+
+  const [comments, setComents] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Detalles de un post
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -37,6 +42,22 @@ function DetailsPostPage(props) {
     fetchDetails();
   }, [params.postId, navigate]);
 
+  //Ver comentarios del post
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/api/comment/postCommented/${params.postId}`
+        );
+         //console.log("COMMENTS RESPONSE:", response.data)
+        setComents(response.data || [])
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    fetchComments();
+  }, [params.postId]);
+
   if (details === null) {
     return (
       <div className="d-flex justify-content-center aling-items-center vh-100">
@@ -48,8 +69,6 @@ function DetailsPostPage(props) {
   }
 
   // Crear comentarios
- 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,7 +93,8 @@ function DetailsPostPage(props) {
           headers: { authorization: `Bearer ${authToken}` },
         }
       );
-      navigate("/");
+      setText("");
+      setImage("");
     } catch (error) {
       console.log(error);
       navigate("*");
@@ -97,13 +117,46 @@ function DetailsPostPage(props) {
 
   return (
     <div>
-      <Card>
-        <Card.Img variant="top" src={details.image} alt={details.image} />
-        <Card.Title>{details.title}</Card.Title>
-        <Card.Body>
-          <Card.Text>{details.distancekm} Km</Card.Text>
-        </Card.Body>
-      </Card>
+      <div className="imagedetailpost">
+        <Card>
+          <Card.Img variant="top" src={details.image} alt={details.image} />
+          <Card.Title>{details.title}</Card.Title>
+          <Card.Body>
+            <Card.Text>{details.distancekm} Km</Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
+
+      <div className="buttonsPost">
+        <Link to={`/formUpdatePostPage/${params.postId}`}>
+          <Button variant="success">Update</Button>
+        </Link>
+
+        <Button variant="danger" onClick={handleShow}>
+          Delete
+        </Button>
+      </div>
+      <hr />
+
+      <div className="mx-5">
+        <h3>Comments</h3>
+        {comments.map((eachComment) => (
+          <Card key={eachComment._id} className="mb-3">
+            {eachComment.image && (
+              <Card.Img variant="top" src={eachComment.image} alt="Comment Image"/>
+            )}
+            <Card.Body>
+              <Card.Text>{eachComment.text}</Card.Text>
+              <small>Published by: {" "}
+                {eachComment.userCreator?.username || "Unknown user"}
+              </small>
+            </Card.Body>
+          </Card>
+        ))}
+
+      </div>
+
+      <hr />
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Comment: </Form.Label>
@@ -115,8 +168,7 @@ function DetailsPostPage(props) {
             onChange={(e) => setText(e.target.value)}
           />
         </Form.Group>
-
-         <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
             type="text"
@@ -125,35 +177,31 @@ function DetailsPostPage(props) {
             required
             onChange={(e) => setImage(e.target.value)}
           />
-        </Form.Group>  
-            <Button variant="primary" type="submit">
-            Submit
-          </Button>  
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
       </Form>
 
       <hr />
 
       <h1>User Creator</h1>
-      <Card>
-        <Card.Img
-          variant="top"
-          src={details.userCreator.image}
-          alt="User Image"
-          className="w-50 h-auto mx-auto d-block"
-        />
-        <Card.Title>{details.userCreator.username}</Card.Title>
-        <Card.Body>
-          <Card.Text>{details.userCreator.email}</Card.Text>
-        </Card.Body>
-      </Card>
-
-      <Link to={`/formUpdatePostPage/${params.postId}`}>
-        <Button variant="success">Update</Button>
-      </Link>
-
-      <Button variant="danger" onClick={handleShow}>
-        Delete
-      </Button>
+      <div className="carduser">
+        <Card>
+          <Card.Img
+            variant="top"
+            src={details.userCreator.image}
+            alt="User Image"
+            className="w-50 h-auto mx-auto d-block rounded-circle"
+            style={{ width: "150px", height: "150px", objectFit: "cover" }}
+          />
+          <Card.Title>{details.userCreator.username}</Card.Title>
+          <Card.Body>
+            <Card.Text>{details.userCreator.email}</Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

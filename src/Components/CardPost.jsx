@@ -5,7 +5,7 @@ function CardPost(props) {
   if (!props) return null;
 
   return (
-    <Card>
+    <Card className="cards">
       <Link to={`/details/${props.eachPost._id}`}>
         <Card.Img
           variant="top"
