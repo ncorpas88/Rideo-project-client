@@ -30,11 +30,8 @@ function App() {
         <Route path="/createPost" element={<OnlyPrivate><FormCreatePostPage/></OnlyPrivate>}/>
         <Route path="/details/:postId" element={<DetailsPostPage />} />
         <Route path="/formUpdatePostPage/:postId" element={<FormUpdatePostPage />} />
+        <Route path="/updateProfile/:userId" element={<FormUpdateProfilePage />} />
       </Routes>
-        {/*
-        
-        <FormUpdateProfilePage />
-        */}
       <Footer />
     </>
   );
