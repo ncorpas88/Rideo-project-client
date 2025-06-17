@@ -9,38 +9,26 @@ function UserProfilePage() {
 
   const { authenticateUser } = useContext(AuthContext);
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(undefined);
-  const { loggedUserId } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!loggedUserId) return;
+    
     const getUser = async () => {
       const storedToken = localStorage.getItem("authToken");
 
-      if (storedToken) {
+      
         try {
           const response = await axios.get(
-            `${import.meta.env.VITE_SERVER_URL}/api/user/${loggedUserId}`,
+            `${import.meta.env.VITE_SERVER_URL}/api/user`,
             { headers: { Authorization: `Bearer ${storedToken}` } }
           );
           setUserProfile(response.data);
-          setLoading(false);
         } catch (error) {
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
         }
-      } else {
-        setErrorMessage("User not logged in");
-      }
     };
     getUser();
-  }, [loggedUserId]);
+  }, []);
 
-  if (!loggedUserId) return <div>Loading user...</div>;
-  if (errorMessage) return <div>{errorMessage}</div>;
-  if (loading) return <div>Loading...</div>;
-
+  
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
 
@@ -52,22 +40,27 @@ function UserProfilePage() {
       console.log(error);
     }
   };
-
+  // poner la condicio con clausula de guardi con el loading
   return (
     <div>
       <h1>UserProfile Page</h1>
       {userProfile && (
-        <Card className="userprofile">
+        <>
+         <Card className="userprofile">
           <Card.Img src={userProfile.image} alt={userProfile.image} style={{width: "200px", height: "auto"}}/>
             <h1>{userProfile.username}</h1>
             <p>Email: {userProfile.email}</p>
         </Card>
-      )}
-      <hr />
-
-      <Link to={`/updateProfile/${loggedUserId}`}>
+        <hr />
+         <Link to={`/updateProfile/${userProfile._id}`}>
         <button>Update my profile</button>
       </Link>
+        </>
+       
+      )}
+      
+
+     
 
       <hr />
       <button onClick={handleLogout}>Logout</button>

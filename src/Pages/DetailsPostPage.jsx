@@ -40,11 +40,15 @@ function DetailsPostPage(props) {
       }
     };
     fetchDetails();
-  }, [params.postId, navigate]);
+  }, []);
 
   //Ver comentarios del post
   useEffect(() => {
-    const fetchComments = async () => {
+    
+    fetchComments();
+  }, []);
+
+const fetchComments = async () => {
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/api/comment/postCommented/${params.postId}`
@@ -55,18 +59,6 @@ function DetailsPostPage(props) {
         console.log(error)
       }
     };
-    fetchComments();
-  }, [params.postId]);
-
-  if (details === null) {
-    return (
-      <div className="d-flex justify-content-center aling-items-center vh-100">
-        <Spinner animation="grow" variant="dark" />;
-        <br />
-        <p>Loading post...</p>
-      </div>
-    );
-  }
 
   // Crear comentarios
   const handleSubmit = async (e) => {
@@ -93,6 +85,7 @@ function DetailsPostPage(props) {
           headers: { authorization: `Bearer ${authToken}` },
         }
       );
+      fetchComments();
       setText("");
       setImage("");
     } catch (error) {
@@ -123,12 +116,24 @@ function DetailsPostPage(props) {
         `${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setComents((prevComments) =>
-        prevComments.filter((comment) => comment._id !== commentId)
-      )
+      fetchComments();
+      //actualiza comentario nuevo remplazado por el fetch de arriba
+      // setComents((prevComments) =>
+      //   prevComments.filter((comment) => comment._id !== commentId)
+      // ) 
     } catch (error) {
       console.log(error)
     }
+  }
+
+    if (details === null) {
+    return (
+      <div className="d-flex justify-content-center aling-items-center vh-100">
+        <Spinner animation="grow" variant="dark" />;
+        <br />
+        <p>Loading post...</p>
+      </div>
+    );
   }
 
   return (
