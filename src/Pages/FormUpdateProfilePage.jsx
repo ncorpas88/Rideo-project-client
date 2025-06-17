@@ -23,8 +23,8 @@ function FormUpdateProfilePage() {
     };
 
     try {
-     await axios.put(
-        `${import.meta.env.VITE_SERVER_URL}/api/user/${userId}`,
+    const response = await axios.put(
+        `${import.meta.env.VITE_SERVER_URL}/api/user`,
         updateProfile,
         {
           headers: { authorization: `Bearer ${authToken}` },
