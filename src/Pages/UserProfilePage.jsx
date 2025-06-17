@@ -57,7 +57,7 @@ function UserProfilePage() {
     <div>
       <h1>UserProfile Page</h1>
       {userProfile && (
-        <Card>
+        <Card className="userprofile">
           <Card.Img src={userProfile.image} alt={userProfile.image} style={{width: "200px", height: "auto"}}/>
             <h1>{userProfile.username}</h1>
             <p>Email: {userProfile.email}</p>

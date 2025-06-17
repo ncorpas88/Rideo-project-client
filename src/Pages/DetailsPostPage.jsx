@@ -132,7 +132,7 @@ function DetailsPostPage(props) {
   }
 
   return (
-    <div>
+    <div className="deatailsPost">
       <div className="imagedetailpost">
         <Card>
           <Card.Img variant="top" src={details.image} alt={details.image} />
