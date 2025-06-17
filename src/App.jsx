@@ -12,7 +12,7 @@ import FormCreatePostPage from "./Pages/FormCreatePostPage";
 import DetailsPostPage from "./Pages/DetailsPostPage";
 
 //Components
-import Navbar from "./Components/Navbar";
+import MyNavbar from "./Components/MyNavbar";
 import Footer from "./Components/Footer";
 import OnlyPrivate from "./Components/OnlyPrivate";
 
@@ -20,7 +20,7 @@ import OnlyPrivate from "./Components/OnlyPrivate";
 function App() {
   return (
     <>
-      <Navbar />
+      <MyNavbar />
       <Routes>
         <Route path="/" element={<HomePage />}/>
         <Route path="/signin" element={<Signup />}/>

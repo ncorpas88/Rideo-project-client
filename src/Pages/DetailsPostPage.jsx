@@ -144,6 +144,7 @@ const fetchComments = async () => {
           <Card.Title>{details.title}</Card.Title>
           <Card.Body>
             <Card.Text>{details.distancekm} Km</Card.Text>
+            <Card.Text>{details.location}</Card.Text>
           </Card.Body>
         </Card>
       </div>
