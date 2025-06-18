@@ -38,7 +38,7 @@
   margin-bottom: 5px;
 }
 
-.nav h1 {
+.nav h2 {
   width: 20vw;
   color: aliceblue;
 }
@@ -198,6 +198,12 @@
   .iconosfiltro img{
   width: 16vw;
   height: 16vw;
+}
+.nav h2 {
+  display: flex;
+  justify-content: center;
+  color: aliceblue;
+  margin-right: 80px;
 }
 }
 

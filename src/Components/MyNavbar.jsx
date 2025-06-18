@@ -33,10 +33,10 @@ function MyNavbar() {
         <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
         <img src="image/rideo.png" alt="logo" width={200}/>
       </NavbarBrand>
-      <h1>
-        "<span>N</span>o <span>R</span>ide, <span>N</span>o 
-        <br /> <span>L</span>ikes".
-      </h1>
+      <h2>
+        "<span>N</span>o  <span>R</span>ide,  <span>N</span>o  
+         <span>L</span>ikes".
+      </h2>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto gap-0">
