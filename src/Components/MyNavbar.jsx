@@ -33,9 +33,10 @@ function MyNavbar() {
         <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
         <img src="image/rideo.png" alt="logo" width={200}/>
       </NavbarBrand>
-      <NavbarBrand>
-        <img src="image/ciclista.gif" alt="ciclista" width={100} />
-      </NavbarBrand>
+      <h1>
+        "<span>N</span>o <span>R</span>ide, <span>N</span>o 
+        <br /> <span>L</span>ikes".
+      </h1>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto gap-0">
@@ -58,6 +59,7 @@ function MyNavbar() {
             </Nav.Link>
           </>
         )}
+        
         </Nav>
         <Form className="d-flex align-items-center ms-auto">
           <Row className="align-items-center g-2">

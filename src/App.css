@@ -38,6 +38,11 @@
   margin-bottom: 5px;
 }
 
+.nav h1 {
+  width: 20vw;
+  color: aliceblue;
+}
+
 .buttonsPost {
   display: flex;
   justify-content: center;
