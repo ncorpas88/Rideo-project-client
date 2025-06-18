@@ -203,23 +203,24 @@
   width: 16vw;
   height: 16vw;
 }
+
+
+
 .nav h2 {
   display: flex;
   justify-content: center;
   color: aliceblue;
   margin-right: 80px;
-  margin-left: 45px;
+  margin-left: 15%;
   font-size: 30px;
-  margin-top: -40px;
+  margin-top: -60px;
 }
 
 .nav img {
   margin-top: -20px;
+  margin-left: 40%;
 }
 
-.toglleBtn {
-  margin-top: 20px;
-}
 }
 
 
