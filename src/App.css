@@ -39,7 +39,11 @@
 }
 
 .nav h2 {
-  width: 20vw;
+  flex-grow: 1;
+  text-align: center;
+  margin: 0;
+  margin-top: -10px;
+  font-size: 50px;
   color: aliceblue;
 }
 
@@ -204,6 +208,17 @@
   justify-content: center;
   color: aliceblue;
   margin-right: 80px;
+  margin-left: 45px;
+  font-size: 30px;
+  margin-top: -40px;
+}
+
+.nav img {
+  margin-top: -20px;
+}
+
+.toglleBtn {
+  margin-top: 20px;
 }
 }
 
