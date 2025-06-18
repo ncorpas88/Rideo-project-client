@@ -53,13 +53,23 @@ function HomePage() {
 
   return (
     <div className="posts">
-      <Form.Select size="lg" onChange={handleFilterPost} username="" _id="">
-        <option value="">All Post</option>
-        <option value="lt30">Menos de 30 km</option>
-        <option value="30-50">Entre 30 Y 50 KM</option>
-        <option value="50-70">Entre 50 y 70 km</option>
-        <option value="gt70">MÁS DE 70 KM</option>
-      </Form.Select>
+     <div className="filter-icons d-flex gap-3 justify-content-center my-3">
+  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "" } })}>
+    🟢 Todos
+  </button>
+  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "lt30" } })}>
+    🚗 -30km
+  </button>
+  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "30-50" } })}>
+    🚗 30-50km
+  </button>
+  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "50-70" } })}>
+    🚗 50-70km
+  </button>
+  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "gt70" } })}>
+    🚗 +70km
+  </button>
+</div>
 
       {allPost
         .filter((eachPost) => {
