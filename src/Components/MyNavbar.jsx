@@ -20,7 +20,7 @@ function MyNavbar() {
   
   const handleSearch = (e) => {
     const currentDistance = searchParams.get("distancekm");
-
+ 
     const params = new URLSearchParams();
     if (search) params.set("search", search);
     if (currentDistance) params.set("distancekm", currentDistance)
