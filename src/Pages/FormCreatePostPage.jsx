@@ -15,6 +15,8 @@ function FormCreatePostPage() {
   const [distancekm, setDistancekm] = useState("");
   const [location, setLocation] = useState("");
 
+  const [isUploading, setIsUploading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,6 +47,32 @@ function FormCreatePostPage() {
     }
   };
 
+   const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
+   
+    const authToken = localStorage.getItem("authToken");
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
+        uploadData,  
+        { headers: { authorization: `Bearer ${authToken}` } }
+
+      );
+     
+      setImage(response.data.image);
+      setIsUploading(false); 
+        } catch (error) {
+      navigate("/error");
+    }
+  };
+
   return (
     <div>
       <h1>Add Post</h1>
@@ -52,13 +80,20 @@ function FormCreatePostPage() {
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
-            type="text"
-            name="Url"
-            value={image}
-            required
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
         </Form.Group>
+
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (
+          <div>
+            <img src={image} alt="img" width={200} />
+          </div>
+        ) : null}
+      
 
         <Form.Group className="mb-3">
           <Form.Label>Title: </Form.Label>
@@ -104,8 +139,8 @@ function FormCreatePostPage() {
           />
         </Form.Group>
 
-        <Button variant="success" type="submit">
-          Add Post
+          <Button disabled={isUploading} variant="primary" type="submit">
+          Create Post
         </Button>
       </Form>
     </div>

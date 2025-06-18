@@ -10,10 +10,13 @@ function FormUpdateProfilePage() {
   const [image, setImage] = useState("");
 
   const navigate = useNavigate();
-  const { userId } = useParams();
+ 
   const authToken = localStorage.getItem("authToken");
 
-  const handleSubmit =  async(e) => {
+ 
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const updateProfile = {
@@ -23,20 +26,47 @@ function FormUpdateProfilePage() {
     };
 
     try {
-    const response = await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_SERVER_URL}/api/user`,
         updateProfile,
         {
           headers: { authorization: `Bearer ${authToken}` },
         }
       );
-      setUsername(response.data.username);
-      setEmail(response.data.email);
-      setImage(response.data.image)
+      //console.log(response.data.image)
       navigate("/userProfile");
     } catch (error) {
       console.log(error);
       navigate("*");
+    }
+
+  };
+
+ 
+  const handleFileUpload = async (event) => {
+
+
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
+   
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
+        uploadData,  
+        { headers: { authorization: `Bearer ${authToken}` } }
+
+      );
+     
+      setImage(response.data.image);
+      setIsUploading(false); 
+        } catch (error) {
+      navigate("/error");
     }
   };
 
@@ -69,15 +99,19 @@ function FormUpdateProfilePage() {
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
-            type="text"
-            name="Url"
-            value={image}
-            required
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (
+          <div>
+            <img src={image} alt="img" width={200} />
+          </div>
+        ) : null}
+        <Button disabled={isUploading} variant="primary" type="submit">
           Update Profile
         </Button>
       </Form>

@@ -21,6 +21,7 @@ function UserProfilePage() {
             `${import.meta.env.VITE_SERVER_URL}/api/user`,
             { headers: { Authorization: `Bearer ${storedToken}` } }
           );
+         // console.log("User Profile:", response.data);
           setUserProfile(response.data);
         } catch (error) {
         }
@@ -47,7 +48,9 @@ function UserProfilePage() {
       {userProfile && (
         <>
          <Card className="userprofile">
-          <Card.Img src={userProfile.image} alt={userProfile.image} style={{width: "200px", height: "auto"}}/>
+          <Card.Img src={userProfile.image} 
+          alt={userProfile.image} 
+          style={{width: "200px", height: "auto"}}/>
             <h1>{userProfile.username}</h1>
             <p>Email: {userProfile.email}</p>
         </Card>
