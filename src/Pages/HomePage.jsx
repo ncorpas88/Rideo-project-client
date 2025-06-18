@@ -54,39 +54,57 @@ function HomePage() {
   return (
     <div className="posts">
       <div className="filter-icons d-flex gap-3 justify-content-center my-3">
-        <div>
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => handleFilterPost({ target: { value: "" } })}
-          >
-            🟢 Todos
-          </button>
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => handleFilterPost({ target: { value: "lt30" } })}
-          >
-            🚗 -30km
-          </button>
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => handleFilterPost({ target: { value: "30-50" } })}
-          >
-            🚗 30-50km
-          </button>
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => handleFilterPost({ target: { value: "50-70" } })}
-          >
-            🚗 50-70km
-          </button>
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => handleFilterPost({ target: { value: "gt70" } })}
-          >
-            🚗 +70km
-          </button>
+        <div className="iconosfiltro">
+          <div className="d-flex gap-3 justify-content-center my-3">
+            <img
+              src="image/all.png"
+              alt="Todos"
+              width="50"
+              height="50"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleFilterPost({ target: { value: "" } })}
+            />
+
+            <img
+              src="/image/lt30.png"
+              alt="Menos de 30km"
+              width="50"
+              height="50"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleFilterPost({ target: { value: "lt30" } })}
+            />
+
+            <img
+              src="/image/30-50.png"
+              alt="3050km"
+              width="50"
+              height="50"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleFilterPost({ target: { value: "30-50" } })}
+            />
+
+            <img
+              src="/image/50-70.png"
+              alt="5070km"
+              width="50"
+              height="50"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleFilterPost({ target: { value: "50-70" } })}
+            />
+
+            <img
+              src="/image/gt70.png"
+              alt="+70km"
+              width="50"
+              height="50"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleFilterPost({ target: { value: "gt70" } })}
+            />
+          </div>
         </div>
       </div>
+
+      <hr />
 
       {allPost
         .filter((eachPost) => {
