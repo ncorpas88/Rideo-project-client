@@ -121,5 +121,13 @@
  text-align: end;
 }
 
+.imagedetailpost {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
 
 }
