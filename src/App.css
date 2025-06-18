@@ -153,10 +153,23 @@
 }
 
 .cards {
- width: 500px;
+ width: 400px;
 }
 .cards img {
-  width: 500px;
+  width: 400px;
+  padding-right: 3px;
+}
+
+}
+
+
+@media (max-width: 400px){
+
+  .cards {
+ width: 350px;
+}
+.cards img {
+  width: 350px;
   padding-right: 3px;
 }
 

@@ -53,23 +53,40 @@ function HomePage() {
 
   return (
     <div className="posts">
-     <div className="filter-icons d-flex gap-3 justify-content-center my-3">
-  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "" } })}>
-    🟢 Todos
-  </button>
-  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "lt30" } })}>
-    🚗 -30km
-  </button>
-  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "30-50" } })}>
-    🚗 30-50km
-  </button>
-  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "50-70" } })}>
-    🚗 50-70km
-  </button>
-  <button className="btn btn-outline-primary" onClick={() => handleFilterPost({ target: { value: "gt70" } })}>
-    🚗 +70km
-  </button>
-</div>
+      <div className="filter-icons d-flex gap-3 justify-content-center my-3">
+        <div>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => handleFilterPost({ target: { value: "" } })}
+          >
+            🟢 Todos
+          </button>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => handleFilterPost({ target: { value: "lt30" } })}
+          >
+            🚗 -30km
+          </button>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => handleFilterPost({ target: { value: "30-50" } })}
+          >
+            🚗 30-50km
+          </button>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => handleFilterPost({ target: { value: "50-70" } })}
+          >
+            🚗 50-70km
+          </button>
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => handleFilterPost({ target: { value: "gt70" } })}
+          >
+            🚗 +70km
+          </button>
+        </div>
+      </div>
 
       {allPost
         .filter((eachPost) => {
