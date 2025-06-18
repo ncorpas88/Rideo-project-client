@@ -17,49 +17,64 @@ function MyNavbar() {
   const [searchParams] = useSearchParams();
 
   const [expanded, setExpanded] = useState(false);
-  
+
   const handleSearch = (e) => {
     const currentDistance = searchParams.get("distancekm");
- 
+
     const params = new URLSearchParams();
     if (search) params.set("search", search);
-    if (currentDistance) params.set("distancekm", currentDistance)
-    setExpanded(false)  
+    if (currentDistance) params.set("distancekm", currentDistance);
+    setExpanded(false);
     navigate(`/?search=${search}`);
   };
 
   return (
-    <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} expand="lg" className="nav">
-        <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
-        <img src="image/rideo.png" alt="logo" width={200}/>
+    <Navbar
+      expanded={expanded}
+      onToggle={() => setExpanded(!expanded)}
+      expand="lg"
+      className="nav"
+    >
+      <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
+        <img src="image/rideo.png" alt="logo" width={200} />
       </NavbarBrand>
       <h2>
-        "<span>N</span>o  <span>R</span>ide,  <span>N</span>o  
-         <span>L</span>ikes".
+        "<span>N</span>o <span>R</span>ide, <span>N</span>o<span>L</span>ikes".
       </h2>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto gap-0">
-        <Nav.Link as={Link} to="/" onClick={() => setExpanded(false)}>
-          <Button>Home</Button>
-        </Nav.Link>
-        {isLoggedIn === false ? (
-          <>
-            <Nav.Link as={Link} to="/signin" onClick={() => setExpanded(false)}>
-              <Button>Signin</Button>
-            </Nav.Link>
-            <Nav.Link as={Link} to="/login" onClick={() => setExpanded(false)}>
-              <Button>Login</Button>
-            </Nav.Link>
-          </>
-        ) : (
-          <>
-            <Nav.Link as={Link} to="/userProfile" onClick={() => setExpanded(false)}>
-              <Button>Profile</Button>
-            </Nav.Link>
-          </>
-        )}
-        
+          <Nav.Link as={Link} to="/" onClick={() => setExpanded(false)}>
+            <Button>Home</Button>
+          </Nav.Link>
+          {isLoggedIn === false ? (
+            <>
+              <Nav.Link
+                as={Link}
+                to="/signin"
+                onClick={() => setExpanded(false)}
+              >
+                <Button>Signin</Button>
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/login"
+                onClick={() => setExpanded(false)}
+              >
+                <Button>Login</Button>
+              </Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link
+                as={Link}
+                to="/userProfile"
+                onClick={() => setExpanded(false)}
+              >
+                <Button>Profile</Button>
+              </Nav.Link>
+            </>
+          )}
         </Nav>
         <Form className="d-flex align-items-center ms-auto">
           <Row className="align-items-center g-2">
@@ -72,9 +87,11 @@ function MyNavbar() {
               />
             </Col>
             <Col xs="auto">
-              <Button onClick={handleSearch} variant="success" type="button">
-                Search
-              </Button>
+              <div className="search">
+                <Button onClick={handleSearch} variant="success" type="button">
+                  Search
+                </Button>
+              </div>
             </Col>
           </Row>
         </Form>
