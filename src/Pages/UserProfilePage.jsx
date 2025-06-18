@@ -66,7 +66,7 @@ function UserProfilePage() {
      
 
       <hr />
-      <button onClick={handleLogout}>Logout</button>
+      <button className="butonlogout" onClick={handleLogout}>Logout</button>
       <hr />
     </div>
   );

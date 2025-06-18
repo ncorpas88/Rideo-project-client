@@ -5,7 +5,8 @@ function CardPost(props) {
   if (!props) return null;
 
   return (
-    <Card className="cards">
+    <div className="cards-container">
+       <Card className="cards">
       <Link to={`/details/${props.eachPost._id}`}>
         <Card.Img
           variant="top"
@@ -18,6 +19,8 @@ function CardPost(props) {
         <Card.Text>{props.eachPost.distancekm} Km</Card.Text>
       </Card.Body>
     </Card>
+    </div>
+   
   );
 }
 
