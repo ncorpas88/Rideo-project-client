@@ -170,6 +170,15 @@
 }
 
 
+@media (max-width: 690px){
+  .iconosfiltro img{
+  width: 16vw;
+  height: 16vw;
+}
+}
+
+
+
 @media (max-width: 400px){
 
   .cards {
@@ -184,5 +193,7 @@
   width: 50px;
   height: 50px;
 }
+
+
 
 }
