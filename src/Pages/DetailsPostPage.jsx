@@ -24,6 +24,8 @@ function DetailsPostPage(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+   const [isUploading, setIsUploading] = useState(false);
+
   // Detalles de un post
   useEffect(() => {
     const fetchDetails = async () => {
@@ -126,6 +128,34 @@ const fetchComments = async () => {
     }
   }
 
+
+  const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
+   
+    const authToken = localStorage.getItem("authToken");
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
+        uploadData,  
+        { headers: { authorization: `Bearer ${authToken}` } }
+
+      );
+     
+      setImage(response.data.image);
+      setIsUploading(false); 
+        } catch (error) {
+      navigate("/error");
+    }
+  };
+
+
     if (details === null) {
     return (
       <div className="d-flex justify-content-center aling-items-center vh-100">
@@ -198,16 +228,22 @@ const fetchComments = async () => {
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
-            type="text"
-            name="Url"
-            value={image}
-            required
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
+         {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (
+          <div>
+            <img src={image} alt="img" width={200} />
+          </div>
+        ) : null}
+
+         <Button disabled={isUploading} variant="primary" type="submit">
+          Comment
         </Button>
       </Form>
 

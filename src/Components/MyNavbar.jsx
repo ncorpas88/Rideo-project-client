@@ -31,7 +31,10 @@ function MyNavbar() {
   return (
     <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} expand="lg" className="nav">
         <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
-        <img src="image/rideo.png" alt="logo" width={150}/>
+        <img src="image/rideo.png" alt="logo" width={200}/>
+      </NavbarBrand>
+      <NavbarBrand>
+        <img src="image/ciclista.gif" alt="ciclista" width={100} />
       </NavbarBrand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
       <Navbar.Collapse id="basic-navbar-nav">
