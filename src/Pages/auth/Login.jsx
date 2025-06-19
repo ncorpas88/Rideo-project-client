@@ -2,6 +2,8 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/auth.context";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 function Login() {
 
@@ -43,34 +45,37 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
 
       <h1>Login</h1>
 
-      <form onSubmit={handleLogin}>
-        <label>Mail:</label>
-        <input
+      <Form className="mx-5 p-2" onSubmit={handleLogin}>
+        <Form.Group className="mb-3">
+        <Form.Label>Mail: </Form.Label>
+        <Form.Control
           type="email"
           name="email"
           value={email}
           onChange={handleEmailChange}
         />
+        </Form.Group>
 
         <br />
-
-        <label>Password:</label>
-        <input
+        <Form.Group className="mb-3">
+        <Form.Label>Password: </Form.Label>
+        <Form.Control
           type="password"
           name="password"
           value={password}
           onChange={handlePasswordChange}
         />
+        </Form.Group>
 
         <br />
 
-        <button type="submit">login</button>
+        <Button type="submit">login</Button>
         {errorMessage && <p>{errorMessage}</p>}
-      </form>
+      </Form>
       
     </div>
   );
