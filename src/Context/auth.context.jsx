@@ -46,7 +46,7 @@ function AuthWrapper(props) {
     return (
       <div className="valuser">
         <h2>... validando usuario</h2>
-        <img src="image/ciclismo-14.png" alt="ciclista" />
+        <img src="image/ciclismo-14.gif" alt="ciclista" />
       </div>
     );
   }
