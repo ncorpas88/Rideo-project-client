@@ -263,7 +263,7 @@ function DetailsPostPage(props) {
 
       <h1>User Creator</h1>
       <div className="carduser">
-        <Card>
+        <Card className="tarjetauser">
           <Card.Img
             variant="top"
             src={details.userCreator.image}

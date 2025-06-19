@@ -150,6 +150,11 @@
   margin-bottom: 6rem;
 }
 
+.tarjetauser {
+  height: 280px;
+  padding-top: 20px;
+}
+
 .userprofile {
   width: 70%;
   display: flex;
