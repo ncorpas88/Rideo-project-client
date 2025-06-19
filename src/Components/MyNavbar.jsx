@@ -36,7 +36,7 @@ function MyNavbar() {
       className="nav"
     >
       <NavbarBrand as={Link} to="/" onClick={() => setExpanded(false)}>
-        <img src="image/rideo.png" alt="logo" width={200} />
+        <img src="image/rideo1.gif" alt="logo" width={200} />
       </NavbarBrand>
       <h2>"No Ride, No Likes".</h2>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
