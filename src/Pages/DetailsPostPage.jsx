@@ -175,6 +175,7 @@ const fetchComments = async () => {
           <Card.Body>
             <Card.Text>{details.distancekm} Km</Card.Text>
             <Card.Text>{details.location}</Card.Text>
+            <Card.Text>{details.description}</Card.Text>
           </Card.Body>
         </Card>
       </div>
@@ -227,12 +228,14 @@ const fetchComments = async () => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
-          <Form.Control
+          <Link >
+           <Form.Control
             type="file"
             name="image"
             onChange={handleFileUpload}
             disabled={isUploading}
           />
+          </Link>
         </Form.Group>
 
          {isUploading ? <h3>... uploading image</h3> : null}

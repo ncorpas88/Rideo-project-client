@@ -51,6 +51,7 @@
   display: flex;
   justify-content: center;
   gap: 50px;
+  margin-top: 20px;
 }
 
 
@@ -161,6 +162,15 @@
 
 .search {
   margin-top: 4px;
+}
+
+.deatailsPost {
+  color:aliceblue;
+}
+
+.formprofile {
+  margin-bottom: 80px;
+  color:aliceblue;
 }
 
 @media (max-width: 865px){

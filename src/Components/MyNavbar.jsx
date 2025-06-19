@@ -39,7 +39,7 @@ function MyNavbar() {
         <img src="image/rideo.png" alt="logo" width={200} />
       </NavbarBrand>
       <h2>
-        "<span>N</span>o <span>R</span>ide, <span>N</span>o<span>L</span>ikes".
+        "No Ride, No Likes".
       </h2>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggleBtn" />
       <Navbar.Collapse id="basic-navbar-nav">
