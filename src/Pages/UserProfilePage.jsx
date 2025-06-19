@@ -3,6 +3,7 @@ import { AuthContext } from "../Context/auth.context";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 function UserProfilePage() {
   const navigate = useNavigate();
@@ -54,9 +55,8 @@ function UserProfilePage() {
             <h1>{userProfile.username}</h1>
             <p>Email: {userProfile.email}</p>
         </Card>
-        <hr />
          <Link to={`/updateProfile/${userProfile._id}`}>
-        <button>Update my profile</button>
+        <Button>Update my profile</Button>
       </Link>
         </>
        
@@ -65,9 +65,9 @@ function UserProfilePage() {
 
      
 
-      <hr />
-      <button className="butonlogout" onClick={handleLogout}>Logout</button>
-      <hr />
+      <br />
+      <Button className="butonlogout" onClick={handleLogout}>Logout</Button>
+    
     </div>
   );
 }

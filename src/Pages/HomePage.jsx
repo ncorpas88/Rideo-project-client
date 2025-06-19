@@ -44,11 +44,10 @@ function HomePage() {
   if (allPost === null) {
     return (
       <div className="d-flex justify-content-center aling-items-center vh-100">
-        
         <br />
         <div className="lodingpost">
           <p>Loading Post...</p>
-          <Spinner animation="grow" variant="dark" />
+          <img src="image/ciclismo-14.gif" alt="ciclista" />
         </div>
       </div>
     );
