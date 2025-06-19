@@ -72,7 +72,7 @@ function FormUpdateProfilePage() {
 
   return (
     <div className="formprofile">
-      <h1>Update Profile </h1>
+      
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>User Name: </Form.Label>

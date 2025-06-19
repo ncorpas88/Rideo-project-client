@@ -44,9 +44,12 @@ function HomePage() {
   if (allPost === null) {
     return (
       <div className="d-flex justify-content-center aling-items-center vh-100">
-        <Spinner animation="grow" variant="dark" />
+        
         <br />
-        <p>Loading Post...</p>
+        <div className="lodingpost">
+          <p>Loading Post...</p>
+          <Spinner animation="grow" variant="dark" />
+        </div>
       </div>
     );
   }

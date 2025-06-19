@@ -1,65 +1,61 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
-const AuthContext = createContext()
-
+const AuthContext = createContext();
 
 function AuthWrapper(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedUserId, setLoggedUserId] = useState(null);
+  const [isValidatingToken, setIsValidatingToken] = useState(true);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [loggedUserId, setLoggedUserId] = useState(null)
-    const [isValidatingToken, setIsValidatingToken] = useState(true)
+  const authenticateUser = async () => {
+    const authToken = localStorage.getItem("authToken");
 
-    const authenticateUser = async() => {
-
-        const authToken = localStorage.getItem("authToken")
-        
-        try {
-            
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/auth/verify`, {
-                headers: {
-                    authorization: `Bearer ${authToken}` 
-                }
-            })
-
-            setIsLoggedIn(true)
-            setLoggedUserId(response.data.payload._id)
-            setIsValidatingToken(false)
-
-        } catch (error) {
-            console.log(error)
-            setIsLoggedIn(false)
-            setLoggedUserId(null)
-            setIsValidatingToken(false)
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/verify`,
+        {
+          headers: {
+            authorization: `Bearer ${authToken}`,
+          },
         }
+      );
 
+      setIsLoggedIn(true);
+      setLoggedUserId(response.data.payload._id);
+      setIsValidatingToken(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoggedIn(false);
+      setLoggedUserId(null);
+      setIsValidatingToken(false);
     }
+  };
 
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
-    useEffect(() => {
-        authenticateUser()
-    }, [])
+  const passedContext = {
+    isLoggedIn,
+    loggedUserId,
+    authenticateUser,
+  };
 
-    const passedContext = {
-        isLoggedIn,
-        loggedUserId,
-        authenticateUser
-    }
-
-    if (isValidatingToken) {
-        return(
-            <h3>... validando usuario</h3>
-        )
-    }
-
+  if (isValidatingToken) {
     return (
-        <AuthContext.Provider value={passedContext}>
-            {props.children}
-        </AuthContext.Provider>
-    )
+      <div className="valuser">
+        <h2>... validando usuario</h2>
+        <img src="image/ciclismo-14.png" alt="ciclista" />
+      </div>
+    );
+  }
+
+  return (
+    <AuthContext.Provider value={passedContext}>
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
 
-export {
-    AuthContext,
-    AuthWrapper
-}
+export { AuthContext, AuthWrapper };

@@ -69,8 +69,8 @@ function FormUpdatePostPage() {
   };
   
   return (
-    <div>
-      <h1>Update Post</h1>
+    <div className="updatepost">
+      
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>

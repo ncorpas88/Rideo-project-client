@@ -2,8 +2,9 @@
 
 function ErrorPage() {
   return (
-    <div>
-      <h1>Error Page</h1>
+    <div className="error">
+     
+      <img src="/image/404.gif" alt="error" />
     </div>
   );
 }

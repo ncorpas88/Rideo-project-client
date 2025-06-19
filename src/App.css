@@ -152,6 +152,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
+  margin-top: 40px;
   color: aliceblue; 
 }
 
@@ -169,9 +170,47 @@
 }
 
 .formprofile {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 80px;
+  margin-top: 40px;
   color:aliceblue;
 }
+
+.updatepost {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+  margin-top: 40px;
+  color: aliceblue;
+}
+
+.lodingpost {
+  color: aliceblue;
+  margin-top: 100px;
+}
+
+.error {
+   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 200px;
+  
+}
+
+.valuser {
+   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 200px;
+}
+
+.valuser h2 {
+ font-size: large;
+}
+
 
 @media (max-width: 865px){
 
@@ -206,6 +245,8 @@
   width: 400px;
   padding-right: 3px;
 }
+
+
 
 }
 
