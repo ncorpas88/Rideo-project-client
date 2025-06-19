@@ -52,7 +52,7 @@ function UserProfilePage() {
           <Card.Img src={userProfile.image} 
           alt={userProfile.image} 
           style={{width: "200px", height: "auto"}}/>
-            <h1>{userProfile.username}</h1>
+            <h3>{userProfile.username}</h3>
             <p>Email: {userProfile.email}</p>
         </Card>
          <Link to={`/updateProfile/${userProfile._id}`}>
