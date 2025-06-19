@@ -24,7 +24,7 @@ function DetailsPostPage(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-   const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Detalles de un post
   useEffect(() => {
@@ -46,21 +46,22 @@ function DetailsPostPage(props) {
 
   //Ver comentarios del post
   useEffect(() => {
-    
     fetchComments();
   }, []);
 
-const fetchComments = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/api/comment/postCommented/${params.postId}`
-        );
-         //console.log("COMMENTS RESPONSE:", response.data)
-        setComents(response.data || [])
-      } catch (error) {
-        console.log(error)
-      }
-    };
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/api/comment/postCommented/${
+          params.postId
+        }`
+      );
+      //console.log("COMMENTS RESPONSE:", response.data)
+      setComents(response.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Crear comentarios
   const handleSubmit = async (e) => {
@@ -122,12 +123,11 @@ const fetchComments = async () => {
       //actualiza comentario nuevo remplazado por el fetch de arriba
       // setComents((prevComments) =>
       //   prevComments.filter((comment) => comment._id !== commentId)
-      // ) 
+      // )
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
+  };
 
   const handleFileUpload = async (event) => {
     if (!event.target.files[0]) {
@@ -137,26 +137,24 @@ const fetchComments = async () => {
     setIsUploading(true);
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
-   
+
     const authToken = localStorage.getItem("authToken");
 
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/upload`,
-        uploadData,  
+        uploadData,
         { headers: { authorization: `Bearer ${authToken}` } }
-
       );
-     
+
       setImage(response.data.image);
-      setIsUploading(false); 
-        } catch (error) {
+      setIsUploading(false);
+    } catch (error) {
       navigate("/error");
     }
   };
 
-
-    if (details === null) {
+  if (details === null) {
     return (
       <div className="d-flex justify-content-center aling-items-center vh-100">
         <Spinner animation="grow" variant="dark" />;
@@ -190,65 +188,76 @@ const fetchComments = async () => {
         </Button>
       </div>
       <hr />
-
+      <h3>Comments</h3>
       <div className="mx-5">
-        <h3>Comments</h3>
         {comments.map((eachComment) => (
           <Card key={eachComment._id} className="mb-3">
             {eachComment.image && (
-              <Card.Img variant="top" src={eachComment.image} alt="Comment Image"/>
+              <Card.Img
+                variant="top"
+                src={eachComment.image}
+                alt="Comment Image"
+              />
             )}
             <Card.Body>
               <Card.Text>{eachComment.text}</Card.Text>
-              <small>Published by: {" "}
+              <small>
+                Published by:{" "}
                 {eachComment.userCreator?.username || "Unknown user"}
               </small>
               {isLoggedIn && loggedUserId === eachComment.userCreator?._id && (
                 <div className="mt-2">
-                  <Button variant="danger" size="sm" onClick={() => deleteComment(eachComment._id)}>Delete</Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => deleteComment(eachComment._id)}
+                  >
+                    Delete
+                  </Button>
                 </div>
               )}
             </Card.Body>
           </Card>
         ))}
-
       </div>
 
       <hr />
-      <Form className="mx-5 p-2" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Comment: </Form.Label>
-          <Form.Control
-            type="text"
-            name="Text"
-            value={text}
-            required
-            onChange={(e) => setText(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Image: </Form.Label>
-          <Link >
-           <Form.Control
-            type="file"
-            name="image"
-            onChange={handleFileUpload}
-            disabled={isUploading}
-          />
-          </Link>
-        </Form.Group>
+      
+        <Form className="mx-5 p-2" onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Comment: </Form.Label>
+            <Form.Control
+              type="text"
+              name="Text"
+              value={text}
+              required
+              onChange={(e) => setText(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Image: </Form.Label>
+            <Link>
+              <Form.Control
+                type="file"
+                name="image"
+                onChange={handleFileUpload}
+                disabled={isUploading}
+              />
+            </Link>
+          </Form.Group>
 
-         {isUploading ? <h3>... uploading image</h3> : null}
-        {image ? (
-          <div>
-            <img src={image} alt="img" width={200} />
-          </div>
-        ) : null}
+          {isUploading ? <h3>... uploading image</h3> : null}
+          {image ? (
+            <div>
+              <img src={image} alt="img" width={200} />
+            </div>
+          ) : null}
 
-         <Button disabled={isUploading} variant="primary" type="submit">
-          Comment
-        </Button>
-      </Form>
+          <Button className="butoncomment" disabled={isUploading} variant="primary" type="submit">
+            Comment
+          </Button>
+        </Form>
+     
 
       <hr />
 
