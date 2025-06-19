@@ -129,7 +129,8 @@
   align-items: center;
   flex-wrap: wrap;
   margin: 0 auto;
-  
+  margin-top: 30px;
+ 
 }
 
 .userprofile img {
@@ -209,6 +210,12 @@
 
 .valuser h2 {
  font-size: large;
+}
+
+.userprofile2 {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  color: aliceblue;
 }
 
 

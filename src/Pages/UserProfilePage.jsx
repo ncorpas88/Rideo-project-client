@@ -43,8 +43,8 @@ function UserProfilePage() {
   };
   // poner la condicio con clausula de guardi con el loading
   return (
-    <div>
-      <h1>UserProfile Page</h1>
+    <div className="userprofile2">
+      <h1>My profile</h1>
       {userProfile && (
         <>
          <Card className="userprofile">
