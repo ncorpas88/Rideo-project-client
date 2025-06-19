@@ -119,8 +119,12 @@
   width: 100%;
 }
 
-.footer button{
-  margin: 1rem;
+.footer img{
+  transition: transform 0.2s ease;
+}
+
+.footer img:hover {
+   transform: scale(1.2);
 }
 
 .userimage {
