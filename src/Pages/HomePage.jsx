@@ -127,7 +127,7 @@ function HomePage() {
           } else if (distancekm === "30-50") {
             return km >= 30 && km <= 50;
           } else if (distancekm === "50-70") {
-            return km >= 50 && km >= 70;
+            return km > 50 && km < 70;
           } else if (distancekm === "gt70") {
             return km > 70;
           } else {
