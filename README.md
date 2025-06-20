@@ -2,7 +2,7 @@
 
 ## [See the App!](https://rideo-app.netlify.app)
 
-![App Logo](/public/images/rideo.gif)
+![App Logo](/public/images/rideo1.gif)
 
 ## Description
 
