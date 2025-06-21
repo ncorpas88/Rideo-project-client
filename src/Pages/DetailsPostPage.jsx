@@ -179,13 +179,17 @@ function DetailsPostPage(props) {
       </div>
 
       <div className="buttonsPost">
-        <Link to={`/formUpdatePostPage/${params.postId}`}>
-          <Button variant="success">Update</Button>
-        </Link>
+        {isLoggedIn && loggedUserId === details.userCreator?._id && (
+          <>
+            <Link to={`/formUpdatePostPage/${params.postId}`}>
+              <Button variant="success">Update</Button>
+            </Link>
 
-        <Button variant="danger" onClick={handleShow}>
-          Delete
-        </Button>
+            <Button variant="danger" onClick={handleShow}>
+              Delete
+            </Button>
+          </>
+        )}
       </div>
       <hr />
       <h3>Comments</h3>
@@ -222,42 +226,46 @@ function DetailsPostPage(props) {
       </div>
 
       <hr />
-      
-        <Form className="mx-5 p-2" onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Comment: </Form.Label>
+
+      <Form className="mx-5 p-2" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Comment: </Form.Label>
+          <Form.Control
+            type="text"
+            name="Text"
+            value={text}
+            required
+            onChange={(e) => setText(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Image: </Form.Label>
+          <Link>
             <Form.Control
-              type="text"
-              name="Text"
-              value={text}
-              required
-              onChange={(e) => setText(e.target.value)}
+              type="file"
+              name="image"
+              onChange={handleFileUpload}
+              disabled={isUploading}
             />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Image: </Form.Label>
-            <Link>
-              <Form.Control
-                type="file"
-                name="image"
-                onChange={handleFileUpload}
-                disabled={isUploading}
-              />
-            </Link>
-          </Form.Group>
+          </Link>
+        </Form.Group>
 
-          {isUploading ? <h3>... uploading image</h3> : null}
-          {image ? (
-            <div>
-              <img src={image} alt="img" width={200} />
-            </div>
-          ) : null}
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (
+          <div>
+            <img src={image} alt="img" width={200} />
+          </div>
+        ) : null}
 
-          <Button className="butoncomment" disabled={isUploading} variant="primary" type="submit">
-            Comment
-          </Button>
-        </Form>
-     
+        <Button
+          className="butoncomment"
+          disabled={isUploading}
+          variant="primary"
+          type="submit"
+        >
+          Comment
+        </Button>
+      </Form>
 
       <hr />
 
