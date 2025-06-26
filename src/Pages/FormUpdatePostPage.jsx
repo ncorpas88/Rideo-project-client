@@ -2,12 +2,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import service from "../service/service.config";
 
 function FormUpdatePostPage() {
-
-  const  navigate = useNavigate(); 
-  const {postId} = useParams();
+  const navigate = useNavigate();
+  const { postId } = useParams();
 
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
@@ -25,22 +24,17 @@ function FormUpdatePostPage() {
       title: title,
       description: description,
       distancekm: distancekm,
-      location: location
-    }
-
-    const authToken = localStorage.getItem("authToken");
+      location: location,
+    };
 
     try {
-      axios.put(`${import.meta.env.VITE_SERVER_URL}/api/post/${postId}`, updatePost, {
-        headers: {authorization: `Bearer ${authToken}`}
-      });
+      service.put(`/post/${postId}`, updatePost);
       navigate("/");
     } catch (error) {
       console.log(error);
-      navigate("*")
+      navigate("*");
     }
-
-  }
+  };
 
   const handleFileUpload = async (event) => {
     if (!event.target.files[0]) {
@@ -50,46 +44,37 @@ function FormUpdatePostPage() {
     setIsUploading(true);
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
-   
-    const authToken = localStorage.getItem("authToken");
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
-        uploadData,  
-        { headers: { authorization: `Bearer ${authToken}` } }
-
-      );
-     
+      const response = await service.post(`/upload`, uploadData);
       setImage(response.data.image);
-      setIsUploading(false); 
-        } catch (error) {
+      setIsUploading(false);
+    } catch (error) {
       navigate("/error");
     }
   };
-  
+
   return (
     <div className="updatepost">
-      
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
           <Form.Control
-             type="file"
+            type="file"
             name="image"
             onChange={handleFileUpload}
             disabled={isUploading}
           />
         </Form.Group>
 
-          {isUploading ? <h3>... uploading image</h3> : null}
+        {isUploading ? <h3>... uploading image</h3> : null}
         {image ? (
           <div>
             <img src={image} alt="img" width={200} />
           </div>
         ) : null}
 
-         <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Title: </Form.Label>
           <Form.Control
             type="text"
@@ -100,7 +85,7 @@ function FormUpdatePostPage() {
           />
         </Form.Group>
 
-         <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Description: </Form.Label>
           <Form.Control
             type="text"
@@ -111,7 +96,7 @@ function FormUpdatePostPage() {
           />
         </Form.Group>
 
-         <Form.Group className="mb-3">
+        <Form.Group className="mb-3">
           <Form.Label>Distance: </Form.Label>
           <Form.Control
             type="number"
@@ -133,10 +118,10 @@ function FormUpdatePostPage() {
           />
         </Form.Group>
 
-         <Button disabled={isUploading} variant="primary" type="submit">
+        <Button disabled={isUploading} variant="primary" type="submit">
           Update Post
         </Button>
-      </Form> 
+      </Form>
     </div>
   );
 }

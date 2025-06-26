@@ -1,4 +1,4 @@
-import axios from "axios";
+import service from "../service/service.config";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -30,10 +30,8 @@ function DetailsPostPage(props) {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/api/post/${
-            params.postId
-          }?_expand=user`
+        const response = await service.get(
+          `/post/${params.postId}?_expand=user`
         );
         setDetails(response.data);
       } catch (error) {
@@ -51,10 +49,8 @@ function DetailsPostPage(props) {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/api/comment/postCommented/${
-          params.postId
-        }`
+      const response = await service.get(
+        `/comment/postCommented/${params.postId}`
       );
       //console.log("COMMENTS RESPONSE:", response.data)
       setComents(response.data || []);
@@ -72,8 +68,6 @@ function DetailsPostPage(props) {
       return navigate("/login");
     }
 
-    const authToken = localStorage.getItem("authToken");
-
     const newComment = {
       text: text,
       image: image,
@@ -81,13 +75,7 @@ function DetailsPostPage(props) {
     };
 
     try {
-      await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/comment/${params.postId}`,
-        newComment,
-        {
-          headers: { authorization: `Bearer ${authToken}` },
-        }
-      );
+      await service.post(`/comment/${params.postId}`, newComment);
       fetchComments();
       setText("");
       setImage("");
@@ -100,11 +88,7 @@ function DetailsPostPage(props) {
   // Borrar Post
   const deletePost = async () => {
     try {
-      const token = localStorage.getItem("authToken");
-      await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL}/api/post/${params.postId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await service.delete(`/post/${params.postId}`);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -114,16 +98,8 @@ function DetailsPostPage(props) {
   // Borrar comentario
   const deleteComment = async (commentId) => {
     try {
-      const token = localStorage.getItem("authToken");
-      await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await service.delete(`/comment/${commentId}`);
       fetchComments();
-      //actualiza comentario nuevo remplazado por el fetch de arriba
-      // setComents((prevComments) =>
-      //   prevComments.filter((comment) => comment._id !== commentId)
-      // )
     } catch (error) {
       console.log(error);
     }
@@ -138,14 +114,8 @@ function DetailsPostPage(props) {
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
 
-    const authToken = localStorage.getItem("authToken");
-
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
-        uploadData,
-        { headers: { authorization: `Bearer ${authToken}` } }
-      );
+      const response = await service.post(`/upload`, uploadData);
 
       setImage(response.data.image);
       setIsUploading(false);

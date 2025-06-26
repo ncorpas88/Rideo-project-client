@@ -1,8 +1,8 @@
-import axios from "axios";
+import service from "../service/service.config";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function FormUpdateProfilePage() {
   const [username, setUsername] = useState("");
@@ -10,10 +10,7 @@ function FormUpdateProfilePage() {
   const [image, setImage] = useState("");
 
   const navigate = useNavigate();
- 
-  const authToken = localStorage.getItem("authToken");
 
- 
   const [isUploading, setIsUploading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -26,26 +23,15 @@ function FormUpdateProfilePage() {
     };
 
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_SERVER_URL}/api/user`,
-        updateProfile,
-        {
-          headers: { authorization: `Bearer ${authToken}` },
-        }
-      );
-      //console.log(response.data.image)
+      const response = await service.put(`/user`, updateProfile);
       navigate("/userProfile");
     } catch (error) {
       console.log(error);
       navigate("*");
     }
-
   };
 
- 
   const handleFileUpload = async (event) => {
-
-
     if (!event.target.files[0]) {
       return;
     }
@@ -53,26 +39,19 @@ function FormUpdateProfilePage() {
     setIsUploading(true);
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
-   
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
-        uploadData,  
-        { headers: { authorization: `Bearer ${authToken}` } }
+      const response = await service.post(`/upload`, uploadData);
 
-      );
-     
       setImage(response.data.image);
-      setIsUploading(false); 
-        } catch (error) {
+      setIsUploading(false);
+    } catch (error) {
       navigate("/error");
     }
   };
 
   return (
     <div className="formprofile">
-      
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>User Name: </Form.Label>

@@ -1,9 +1,7 @@
-import axios from "axios";
+import service from "../service/service.config";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CardPost from "../Components/CardPost";
-import Form from "react-bootstrap/Form";
-import Spinner from "react-bootstrap/Spinner";
 
 function HomePage() {
   const [allPost, setAllPost] = useState([]);
@@ -31,9 +29,7 @@ function HomePage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/api/post`
-      );
+      const response = await service.get(`/post`);
       setAllPost(response.data);
     } catch (error) {
       console.log(error);

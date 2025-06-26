@@ -1,4 +1,4 @@
-import axios from "axios";
+import service from "../service/service.config";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -7,7 +7,7 @@ import { AuthContext } from "../Context/auth.context";
 
 function FormCreatePostPage() {
   const navigate = useNavigate();
-  const {isLoggedIn, loggedUserId} = useContext(AuthContext);
+  const { isLoggedIn, loggedUserId } = useContext(AuthContext);
 
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
@@ -20,12 +20,10 @@ function FormCreatePostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isLoggedIn || !loggedUserId){
+    if (!isLoggedIn || !loggedUserId) {
       alert("You must be logged in to create a post.");
       return navigate("/login");
     }
-
-    const authToken = localStorage.getItem("authToken");
 
     const newPost = {
       image: image,
@@ -37,9 +35,7 @@ function FormCreatePostPage() {
     };
 
     try {
-      await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/post`, newPost, {
-        headers: {authorization: `Bearer ${authToken}`}
-      });
+      await service.post(`/post`, newPost);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -47,7 +43,7 @@ function FormCreatePostPage() {
     }
   };
 
-   const handleFileUpload = async (event) => {
+  const handleFileUpload = async (event) => {
     if (!event.target.files[0]) {
       return;
     }
@@ -55,27 +51,19 @@ function FormCreatePostPage() {
     setIsUploading(true);
     const uploadData = new FormData();
     uploadData.append("image", event.target.files[0]);
-   
-    const authToken = localStorage.getItem("authToken");
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/upload`,
-        uploadData,  
-        { headers: { authorization: `Bearer ${authToken}` } }
+      const response = await service.post(`/upload`, uploadData);
 
-      );
-     
       setImage(response.data.image);
-      setIsUploading(false); 
-        } catch (error) {
+      setIsUploading(false);
+    } catch (error) {
       navigate("/error");
     }
   };
 
   return (
     <div className="addpostcontainer">
-      
       <Form className="mx-5 p-2" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Image: </Form.Label>
@@ -93,7 +81,6 @@ function FormCreatePostPage() {
             <img src={image} alt="img" width={200} />
           </div>
         ) : null}
-      
 
         <Form.Group className="mb-3">
           <Form.Label>Title: </Form.Label>
@@ -139,7 +126,7 @@ function FormCreatePostPage() {
           />
         </Form.Group>
 
-          <Button disabled={isUploading} variant="primary" type="submit">
+        <Button disabled={isUploading} variant="primary" type="submit">
           Create Post
         </Button>
       </Form>
